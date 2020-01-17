@@ -48,12 +48,14 @@ func validateHash(w http.ResponseWriter, r *http.Request) {
 
     hash := lib.Hash(file)
 
+    response:="{\"hash\":\""+hash+"\"}"
+
     _, err = file.Seek(0, os.SEEK_SET)
     if err != nil {
         fmt.Println(err)
     }
 
-    w.Write([]byte(hash)) 
+    w.Write([]byte(response)) 
 }
 
 func uploadFile(w http.ResponseWriter, r *http.Request) {
@@ -147,16 +149,18 @@ func createCredential(metadata *model.Metadata)(string){
     if err != nil{
         fmt.Println("Error:",err)
     }
-    expirationDate, err := strfmt.ParseDateTime(metadata.ExpirationDate+"Z")
+
+    expirationTime, err := time.Parse("2006-01-02T15:04:05Z", metadata.ExpirationDate)
+    if err != nil {
+        fmt.Println(err)
+    }
+
+    fmt.Println("expirationTime:",expirationTime.UTC().Format("2006-01-02T15:04:05Z"))
+
+    expirationDate, err := strfmt.ParseDateTime(expirationTime.UTC().Format("2006-01-02T15:04:05Z"))
     if err != nil{
         fmt.Println("Error:",err)
     }
-
-    currentTime := time.Now()
-  
-    fmt.Println("Current Time in String: ", currentTime.String())
-      
-    fmt.Println("MM-DD-YYYY : ", currentTime.Format("2020-01-15T13:12:12"))
 
     credentialSubject.IssuanceDate = issuanceDate
     credentialSubject.ExpirationDate = expirationDate

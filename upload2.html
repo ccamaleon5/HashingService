@@ -39,7 +39,7 @@
                 <label for="expirationDate">Expiration Date</label>
                 <div class="form-group required">
                     <div class="input-group datepick" id="datepicker">
-                        <input type="text" class="form-control" name="expirationDate" id="expirationDate" required readonly>
+                        <input type="text" class="form-control" name="expirationDate" id="expirationDate" required>
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </div>
@@ -51,11 +51,14 @@
             <label for="generate">Register on LACChain and generate verifiable credential</label>
             <button id="submit"><i class="fa fa-file-text" style="color:green"></i></button>
         </div>
-        <div class="row">
+     <!--   <div class="row">
             <button id="validate">Generate document's hash</button>
-        </div>
+        </div>-->
         <div class="row">
             <button id="validateCredential">VerifyCredential</button>
+        </div>
+        <div class="row">
+            <button id="validateDocument">VerifyDocument&Credential</button>
         </div>
         <div id="credentialDiv" style="width: 600px;height: 300px;">
 	        <br style = "line-height:3;">    
@@ -72,8 +75,7 @@
     <script language="javascript" src="https://momentjs.com/downloads/moment.js"></script>
     <script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
-    <script>
-	//$('#datepicker').datetimepicker();    
+    <script>   
         $(document).ready(function() {
             $('.datepick').datetimepicker({
                 ignoreReadonly: true,
@@ -87,12 +89,15 @@
                 return;
             }
 
+            var d = new Date(document.getElementById('expirationDate').value);
+            var n = d.toISOString();
+
             var metadata = {
                 'name': media.files[0].name,
                 'title': document.getElementById('title').value,
 		        'organization': document.getElementById('organization').value,
                 'author': document.getElementById('author').value,
-                'expirationDate':document.getElementById('expirationDate').value     
+                'expirationDate': n    
             };
 
             var form = new FormData();
@@ -103,10 +108,10 @@
             xhr.open('post', 'http://localhost:9000/upload');
             xhr.responseType = 'json';
             xhr.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
-	    xhr.setRequestHeader('Access-Control-Allow-Origin', '*')	
+	        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')	
             xhr.onload = () => {
-		        console.log(xhr.response[0]);
-		        $("#credentialTxt").val(JSON.stringify(xhr.response[0]));
+		        console.log(xhr.response);
+		        $("#credentialTxt").val(JSON.stringify(xhr.response));
                 $("#credentialDiv").show("slow");    
             };
             xhr.send(form);
@@ -126,7 +131,7 @@
             xhr.open('post', 'http://localhost:9000/validate');
             xhr.responseType = 'json';
             xhr.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
-	    xhr.setRequestHeader('Access-Control-Allow-Origin', '*')	
+	        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')	
             xhr.onload = () => {
 		        console.log(xhr.response);    
             };
@@ -153,12 +158,83 @@
                 if (xhr.response.valid){
                     $("#credentialTxt").val("Your credential is valid");
                 }else{
-                    $("#credentialTxt").val("Your credential isn't valid o that expire");
+                    $("#credentialTxt").val("Your credential is invalid o that expire");
                 }
                     
             };
 	        console.log("valor:"+credential);	    
             xhr.send(credential);
+        })
+        $("#validateDocument").click(function() {
+            var media = document.getElementById('media-file');
+            if (media.files.length != 1) {
+                alert("select a media file to upload");
+                return;
+            }
+
+            var form = new FormData();
+            form.append('media', media.files[0]);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('post', 'http://localhost:9000/validate');
+            xhr.responseType = 'json';
+            xhr.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
+	        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')	
+            xhr.onload = () => {
+                console.log("hash:"+xhr.response.hash);
+                var credentialResponse = JSON.parse($.trim($("#credentialTxt").val()));
+                console.log("credentialHash:"+credentialResponse[0].credentialSubject.hash)
+                if (xhr.response.hash===credentialResponse[0].credentialSubject.hash){
+		            var credential = $.trim($("#credentialTxt").val());
+                    if (credential === "") {
+                        alert("put your credential");
+                        return;
+                    }
+
+                    var xhrCredential = new XMLHttpRequest();
+                    xhrCredential.open('post', 'http://localhost:8000/v1/credential/verify');
+                    xhrCredential.responseType = 'json';
+                    xhrCredential.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
+	                xhrCredential.setRequestHeader('Access-Control-Allow-Origin', '*')
+                    xhrCredential.setRequestHeader('accept','application/json')
+	                xhrCredential.setRequestHeader('Content-Type','application/json')	    
+                    xhrCredential.onload = () => {
+		                console.log(xhrCredential.response);
+                        console.log(xhrCredential.response.valid);
+                        if (xhrCredential.response.valid){
+                            $("#credentialTxt").val("Your credential and Document are valid");
+                        }else{
+                            $("#credentialTxt").val("The Document is valid, but your credential is invalid o that expire");
+                        }
+                    };	    
+                    xhrCredential.send(credential);
+                }else{
+                    var credential = $.trim($("#credentialTxt").val());
+                    if (credential === "") {
+                        alert("put your credential");
+                        return;
+                    }
+
+                    var xhrCredential = new XMLHttpRequest();
+                    xhrCredential.open('post', 'http://localhost:8000/v1/credential/verify');
+                    xhrCredential.responseType = 'json';
+                    xhrCredential.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
+	                xhrCredential.setRequestHeader('Access-Control-Allow-Origin', '*')
+                    xhrCredential.setRequestHeader('accept','application/json')
+	                xhrCredential.setRequestHeader('Content-Type','application/json')	    
+                    xhrCredential.onload = () => {
+		                console.log(xhrCredential.response);
+                        console.log(xhrCredential.response.valid);
+                        if (xhrCredential.response.valid){
+                            $("#credentialTxt").val("The Document is invalid, but your credential is valid");
+                        }else{
+                            $("#credentialTxt").val("The Document is invalid and your credential are invalid");
+                        }
+                    };	    
+                    xhrCredential.send(credential);
+                }    
+            };
+            xhr.send(form);
         })
     </script>
 </body>
