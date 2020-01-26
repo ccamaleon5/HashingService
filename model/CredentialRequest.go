@@ -26,4 +26,7 @@ type CredentialSubject struct {
 
 	// Credential Type
 	Type string `json:"type,omitempty"`
+
+	//Email
+	Email string `json:"email"`
 }

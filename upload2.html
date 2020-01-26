@@ -1,177 +1,301 @@
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body> 
-    <div class="container">
-        <div class="row">
-            <h1>Get a LACChain verifiable credential for your document</h1>
-        </div>	    
-        <div class="row">
-            <div class='col'>
-                <label for="title">Title</label>
-                <input type="text" id="title" name="title" />
-            </div>    
-        </div>
-        <div class="row">
-            <div class='col'>
-                <label for="organization">Organization</label>
-                <input type="text" id="organization" name="organization" />
-            </div>   
-        </div>
-        <div class="row">
-            <div class='col'>
-                <label for="author">Author</label>
-                <input type="text" id="author" name="author" /><br>
-            </div>   
-        </div>
-        <div class="row">
-            <div class='col'>
-                <label for="media-file">Media File</label>
-                <input type="file" id="media-file" name="media-file" /><br>
-            </div>    
-        </div>
-        <div class="row">
-            <div class='col-sm-6'>
-                <label for="expirationDate">Expiration Date</label>
-                <div class="form-group required">
-                    <div class="input-group datepick" id="datepicker">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+
+    <title>LACChain Notarizer</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <!-- Custom styles for this template -->
+    <link href="assets/sticky-footer-navbar.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="assets/bootstrap-datetimepicker.min.css">
+
+<script src="assets/bootstrap-datetimepicker.min.js"></script>
+
+
+  </head>
+
+  <body>
+
+    <header>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+        <a class="navbar-brand" href="#"><img src="assets/logolacchain.png" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Generator<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://medium.com/@lacchain.official/what-is-the-lacchain-global-alliance-and-what-does-it-consist-of-861cb76257b1" target="_blank">About LACChain</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="mailto:info@lacchain.net" target="_blank">Contact</a>
+            </li>
+          </ul>
+      </nav>
+    </header>
+
+    <!-- Begin page content -->
+    <main role="main" class="container">
+      <h1 class="mt-5">LACChain Notarizer</h1>
+      <br>
+      <p class="lead">Register the hash of your document in the LACChain network and get a verifiable credential to prove it to others</p>
+      <p>This free to tool enables you to prove that a document or a file has not been modified over time.
+      First, you can upload a file of any kind and provide additional information as the title, the author and a desired expiration date. We also need you to provide your e-mail to send you the information to prove your file was registered. Then, by pressing the button “Generate Credential” you are generating a unique <a href="https://learncryptography.com/hash-functions/what-are-hash-functions/" target="_blank">hash</a> for your file and registering it in the <a href="http://35.245.15.167/" target="_blank">LACChain blockchain network</a>. The interface will display the information about the transaction and the
+      block in which your hash was registered, as well as the verifiable credential that you can save to prove it to others. An e-mail will be also sent to you will this information.</br>
+      Once your file has been registered, you or anyone you can shared the credential with, can go to the tab “Verify Credential” to verify it is correct and valid, allowing you to proof that the hash of your file was registered in the LACChain network. In the tab “Validate Document &amp; Credential” anyone in possession of the file and the credential can also verify that the hash of that specific file is the one that appears in the credential, so was registered in LACChain. You can also use our <a href="http://35.245.15.167/" target="_blank">transaction explorer</a> to find your transaction in the blockchain!</br>
+For more detailed information about how this notarization service works, please read our Medium article. Please send any comments or suggestions to <a href="mailto:info@lacchain.net" target="_blank">info@lacchain.net</a>. Thank you!</p>
+      <br><br>
+      <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#generateCredential" role="button" aria-expanded="false" aria-controls="generateCredential" onClick="onOpenGenerateCredential();">Generate Credential</a>
+        <a class="btn btn-success" data-toggle="collapse" href="#validateDocument" role="button" aria-expanded="false" aria-controls="validateDocument"  onClick="onOpenValidateDocument();">Validate Document w/Credential</a>
+        <a class="btn btn-secondary" data-toggle="collapse" href="#validateCredential" role="button" aria-expanded="false" aria-controls="validateCredential" onClick="onOpenValidateCredential();">Validate Credential</a>
+      </p>
+      <div class="collapse" id="generateCredential">
+        <div class="card card-body">
+          <p>Please complete the following form to generate a credential for your document. You will later be able to check that the credential is valid, and that the document has not been altered.</p>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <form>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" />
+                </div>
+                <div class="form-group">
+                    <label for="organization">Organization</label>
+                    <input type="text" class="form-control" id="organization" name="organization" />
+                </div>
+                <div class="form-group">
+                    <label for="author">Author</label>
+                    <input type="text" class="form-control" id="author" name="author" />
+                </div>
+		<div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" />
+                </div>
+
+                <div class="form-group">
+                    <label for="media-file">Media File</label>
+                    <input type="file" id="media-file" name="media-file" />
+                </div>  
+                <div class="form-group">
+                    <label for="expirationDate">Set Expiration Date</label>
+                      <div class="input-group datepick" id="datepicker">
                         <input type="text" class="form-control" name="expirationDate" id="expirationDate" required>
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </div>
                     </div>
                 </div>    
-            </div>  
+                              
+              </form>
+              <button class="btn btn-light" id="submitGenerate">Generate Credential <i class="fa fa-file-text" style="color:green"></i></button>
+          </div>
+          <div class="col-md-6 - col-sm-12">
+            <div class = "card" style="width: 90%; left:5%">
+              <div class="card-body">
+                <div id="dispCred">
+                  <p>Your credential will be displayed here.</p>
+                </div>  
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="row">    
-            <label for="generate">Register on LACChain and generate verifiable credential</label>
-            <button id="submit"><i class="fa fa-file-text" style="color:green"></i></button>
-        </div>
-     <!--   <div class="row">
-            <button id="validate">Generate document's hash</button>
-        </div>-->
-        <div class="row">
-            <button id="validateCredential">VerifyCredential</button>
-        </div>
-        <div class="row">
-            <button id="validateDocument">VerifyDocument&Credential</button>
-        </div>
-        <div id="credentialDiv" style="width: 600px;height: 300px;">
-	        <br style = "line-height:3;">    
-            <label style="color:red;">Here will appear your credential, please save it!</label>
-	        <br style = "line-height:2;">
-            <textarea id="credentialTxt" style="width: 600px; height: 300px;"></textarea>
-        </div>
-    </div>
+      </div>
+      </div>
+      <div class="collapse" id="validateDocument">
+        <div class="card card-body">
+            <p>Please upload the original document and the credential to verify whether the document was modified.</p>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <form>
+                <div class="form-group">
+                    <label for="media-fileVal">Media File</label>
+                    <input type="file" id="media-fileVal" name="media-fileVal" />
+                </div>  
+                <div class="form-group">
+                    <label for="certificate_doc">Paste the Credential text here</label>
+                    <textarea class="form-control" id="certificate_doc" rows="5"></textarea>
+                </div>                                  
+              </form>
+               <div class="btn btn-light" id="submitverifydoc">Verify Document <i class="fa fa-file-text" style="color:green"></i></div>
+          </div>
+          <div class="col-md-6 - col-sm-12">
+            <div class = "card" style="width: 90%; left:5%;">
+              <div class="card-body">
+                <div id="valdoc-results">Validation Results will be displayed here.</div>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>   
+      </div>
+      <div class="collapse" id="validateCredential">
+        <div class="card card-body">
+          <p>Please enter a credential to verify that it is a valid LACChain Document Credential.</p>
+          <div id="validation-results"></div>
+          <div class="form-group">
+            <label for="certificate_doc">Paste the Credential text here</label>
+            <textarea class="form-control" id="certificate_valid" rows="5"></textarea>
+          </div> 
+          <div class="btn btn-light" id="submitverifycred">Verify Credential <i class="fa fa-file-text" style="color:green"></i></div>
+          </div>
+      </div>           
+    </main>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script language="javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    
-    <script language="javascript" src="https://momentjs.com/downloads/moment.js"></script>
-    <script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
-    <script>   
-        $(document).ready(function() {
-            $('.datepick').datetimepicker({
+    <div class="bid_lab_logo">
+      <img src="assets/idblablogo.png" style="float:right;">
+    </div>
+    <footer class="footer">
+      <div class="container">
+      </div>
+    </footer>
+
+<script>   
+    $(document).ready(function() {
+	   var d = new Date() 
+	   var currDay = d.getDate(); 
+	   var currMonth = d.getMonth();
+           var currYear = d.getFullYear()+1;
+	   var currHours = d.getHours();
+	   var currMinutes = d.getMinutes();
+	   var currSeconds = d.getSeconds();
+           var startDate = new Date(currYear, currMonth, currDay, currHours, currMinutes, currSeconds);
+            $('#expirationDate').datetimepicker({
                 ignoreReadonly: true,
-                format: "YYYY-MM-DDTHH:mm:ss"
-            });
-        });
-        $("#submit").click(function() {
+                format: "YYYY-MM-DDTHH:mm:ss",
+		defaultDate: startDate,    
+                icons: {
+        today: "fa fa-bomb",
+        date: "fa fa-calendar",
+        time: "fa fa-clock-o",
+        up: "fa fa-arrow-up",
+        next: "fa fa-arrow-right",
+        down: "fa fa-arrow-down",
+        previous: "fa fa-arrow-left",
+        clear: "fas fa-circle-o",
+        close: "fas fa-times"
+    }
+            });    
+
+    });
+
+        $("#submitGenerate").click(function() {
             var media = document.getElementById('media-file');
             if (media.files.length != 1) {
-                alert("select a media file to upload");
+                alert("Please select a document to generate a credential for.");
                 return;
             }
 
-            var d = new Date(document.getElementById('expirationDate').value);
+	    var d = new Date(document.getElementById('expirationDate').value);
             var n = d.toISOString();
 
             var metadata = {
                 'name': media.files[0].name,
                 'title': document.getElementById('title').value,
-		        'organization': document.getElementById('organization').value,
+                'organization': document.getElementById('organization').value,
                 'author': document.getElementById('author').value,
-                'expirationDate': n    
+                'expirationDate':n  
             };
+	    
+	    var contact = {
+		'email': document.getElementById('email').value
+	    };
 
-            var form = new FormData();
-            form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-            form.append('media', media.files[0]);
-
+            var metadatos = new Blob([JSON.stringify(metadata)], {type: 'application/json'});
+	    var contactInformation = new Blob([JSON.stringify(contact)], {type:'application/json'}); 	
+            var formularioCrearDatos = new FormData();
+            formularioCrearDatos.append('metadata', metadatos);
+	    formularioCrearDatos.append('contactInformation', contactInformation);	
+            formularioCrearDatos.append('media', media.files[0]);
+/*     for (let pair of formularioCrearDatos.entries()) {
+             console.log(pair[0],': ',pair[1]);
+       } */
             var xhr = new XMLHttpRequest();
             xhr.open('post', 'http://localhost:9000/upload');
             xhr.responseType = 'json';
             xhr.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
-	        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')	
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*')    
             xhr.onload = () => {
-		        console.log(xhr.response);
-		        $("#credentialTxt").val(JSON.stringify(xhr.response));
-                $("#credentialDiv").show("slow");    
+                console.log(xhr.response[0].credentialData);
+                $("#dispCred").html("<div class='alert alert-success' role='alert'>Congratulations! Your file has been registered successfully. The hash was registered at "+xhr.response[0].metadata.timestamp+" in the transaction "+xhr.response[0].metadata.transaction+", that is in the block "+xhr.response[0].metadata.blockNumber+". , Your credential will be valid until the expiration date __TIME_AND_DATE___. Your credential is the text below. Please copy it and save it in a txt file, or you can also download it from the email we just sent you.</div><p>"+JSON.stringify(xhr.response[0].credentialData)+"</p>");
             };
-            xhr.send(form);
-        })
 
-        $("#validate").click(function() {
-            var media = document.getElementById('media-file');
-            if (media.files.length != 1) {
-                alert("select a media file to upload");
-                return;
-            }
+            xhr.send(formularioCrearDatos);
+        });
 
-            var form = new FormData();
-            form.append('media', media.files[0]);
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('post', 'http://localhost:9000/validate');
-            xhr.responseType = 'json';
-            xhr.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
-	        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')	
-            xhr.onload = () => {
-		        console.log(xhr.response);    
-            };
-            xhr.send(form);
-        })
+      function onOpenGenerateCredential() {
+        $('#validateCredential').collapse('hide');
+        $('#validateDocument').collapse('hide');
+      }
+      function onOpenValidateCredential() {
+        $('#generateCredential').collapse('hide');
+        $('#validateDocument').collapse('hide');
+      }
+       function onOpenValidateDocument() {
+        $('#generateCredential').collapse('hide');
+        $('#validateCredential').collapse('hide');
+      }     
 
-        $("#validateCredential").click(function() {
-            var credential = $.trim($("#credentialTxt").val());
+
+        $("#submitverifycred").click(function() {
+            var credential = $.trim($("#certificate_valid").val());
+            console.log(credential);
             if (credential === "") {
-                alert("put your credential");
+                alert("Please paste the credential text.");
                 return;
             }
+
+ 
 
             var xhr = new XMLHttpRequest();
             xhr.open('post', 'http://localhost:8000/v1/credential/verify');
             xhr.responseType = 'json';
             xhr.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
-	        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
             xhr.setRequestHeader('accept','application/json')
-	        xhr.setRequestHeader('Content-Type','application/json')	    
+            xhr.setRequestHeader('Content-Type','application/json')          
             xhr.onload = () => {
-		        console.log(xhr.response);
+                console.log(xhr.response);
                 console.log(xhr.response.valid);
-                if (xhr.response.valid){
-                    $("#credentialTxt").val("Your credential is valid");
+                if (xhr.response.error.code === "200"){
+                    $("#validation-results").html("<div class='alert alert-success' role='alert'>The credential is valid.</div>");
                 }else{
-                    $("#credentialTxt").val("Your credential is invalid o that expire");
+                    $("#validation-results").html("<div class='alert alert-danger' role='alert'>The credential is not valid or has expired.</div>");
                 }
                     
             };
-	        console.log("valor:"+credential);	    
-            xhr.send(credential);
-        })
-        $("#validateDocument").click(function() {
-            var media = document.getElementById('media-file');
+            console.log("valor:"+credential);        
+            xhr.send("["+credential+"]");
+        })  
+
+
+        $("#submitverifydoc").click(function() {
+            var media = document.getElementById('media-fileVal');
             if (media.files.length != 1) {
-                alert("select a media file to upload");
+                alert("select a media file to upload.");
                 return;
             }
-
             var form = new FormData();
             form.append('media', media.files[0]);
 
@@ -179,15 +303,16 @@
             xhr.open('post', 'http://localhost:9000/validate');
             xhr.responseType = 'json';
             xhr.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
-	        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')	
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*')    
             xhr.onload = () => {
                 console.log("hash:"+xhr.response.hash);
-                var credentialResponse = JSON.parse($.trim($("#credentialTxt").val()));
+                var credentialResponse = JSON.parse($.trim($("#certificate_doc").val()));
+                console.log(credentialResponse[0].credentialSubject.hash);
                 console.log("credentialHash:"+credentialResponse[0].credentialSubject.hash)
                 if (xhr.response.hash===credentialResponse[0].credentialSubject.hash){
-		            var credential = $.trim($("#credentialTxt").val());
+                    var credential = $.trim($("#certificate_doc").val());
                     if (credential === "") {
-                        alert("put your credential");
+                        alert("Please copy and paste your credential.");
                         return;
                     }
 
@@ -195,23 +320,23 @@
                     xhrCredential.open('post', 'http://localhost:8000/v1/credential/verify');
                     xhrCredential.responseType = 'json';
                     xhrCredential.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
-	                xhrCredential.setRequestHeader('Access-Control-Allow-Origin', '*')
+                    xhrCredential.setRequestHeader('Access-Control-Allow-Origin', '*')
                     xhrCredential.setRequestHeader('accept','application/json')
-	                xhrCredential.setRequestHeader('Content-Type','application/json')	    
+                    xhrCredential.setRequestHeader('Content-Type','application/json')       
                     xhrCredential.onload = () => {
-		                console.log(xhrCredential.response);
+                        console.log(xhrCredential.response);
                         console.log(xhrCredential.response.valid);
-                        if (xhrCredential.response.valid){
-                            $("#credentialTxt").val("Your credential and Document are valid");
+                        if (xhrCredential.response.error.code === "200"){
+                            $("#valdoc-results").html("<div class='alert alert-success' role='alert'>Your credential and document are valid.</div>");
                         }else{
-                            $("#credentialTxt").val("The Document is valid, but your credential is invalid o that expire");
+                            $("#valdoc-results").html("<div class='alert alert-danger' role='alert'>The document is valid, but your credential is invalid or has expired.</div>");
                         }
-                    };	    
+                    };      
                     xhrCredential.send(credential);
                 }else{
-                    var credential = $.trim($("#credentialTxt").val());
+                    var credential = $.trim($("#certificate_doc").val());
                     if (credential === "") {
-                        alert("put your credential");
+                        alert("Please paste your credential.");
                         return;
                     }
 
@@ -219,23 +344,24 @@
                     xhrCredential.open('post', 'http://localhost:8000/v1/credential/verify');
                     xhrCredential.responseType = 'json';
                     xhrCredential.setRequestHeader('Authorization', 'Bearer auth-token-if-any')
-	                xhrCredential.setRequestHeader('Access-Control-Allow-Origin', '*')
+                    xhrCredential.setRequestHeader('Access-Control-Allow-Origin', '*')
                     xhrCredential.setRequestHeader('accept','application/json')
-	                xhrCredential.setRequestHeader('Content-Type','application/json')	    
+                    xhrCredential.setRequestHeader('Content-Type','application/json')       
                     xhrCredential.onload = () => {
-		                console.log(xhrCredential.response);
+                        console.log(xhrCredential.response);
                         console.log(xhrCredential.response.valid);
-                        if (xhrCredential.response.valid){
-                            $("#credentialTxt").val("The Document is invalid, but your credential is valid");
+                        if (xhrCredential.response.error.code === "200"){
+				$("#valdoc-results").html("<div class='alert alert-danger' role='alert'>The document is invalid, but your credential is valid.</div>");
                         }else{
-                            $("#credentialTxt").val("The Document is invalid and your credential are invalid");
+				$("#valdoc-results").html("<div class='alert alert-danger' role='alert'>The document and your credential are invalid.</div>");
                         }
-                    };	    
+                    };      
                     xhrCredential.send(credential);
                 }    
             };
             xhr.send(form);
         })
+
     </script>
-</body>
+  </body>
 </html>

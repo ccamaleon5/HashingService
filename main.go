@@ -93,8 +93,18 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Println("Metadata:",string(metadata))
 
+    contactInformation, errContact := getContactInformation(r)
+	if errContact != nil {
+		http.Error(w, "failed to get contact information", http.StatusBadRequest)
+		return
+	}
+	log.Println("ContactInformation:",string(contactInformation))
+
     res := model.Metadata{}
     json.Unmarshal(metadata, &res)
+
+    contact := model.Contact{}
+    json.Unmarshal(contactInformation, &contact)
     
     res.Document = lib.Hash(file)
 
@@ -105,7 +115,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 
     fmt.Println("metadata json:",res)
 
-    responseCredential := createCredential(&res) 
+    responseCredential := createCredential(&res,&contact) 
 
     fmt.Println("responseCredential:",responseCredential)
 
@@ -126,6 +136,20 @@ func getMetadata(r *http.Request) ([]byte, error) {
 	return metadata, nil
 }
 
+func getContactInformation(r *http.Request) ([]byte, error) {
+	f, _, err := r.FormFile("contactInformation")
+	if err != nil {
+		return nil, fmt.Errorf("failed to get contact information form file: %v", err)
+	}
+
+	contactInformation, errRead := ioutil.ReadAll(f)
+	if errRead != nil {
+		return nil, fmt.Errorf("failed to read contactInformation: %v", errRead)
+	}
+
+	return contactInformation, nil
+}
+
 func enableCors(w *http.ResponseWriter) {
     (*w).Header().Set("Access-Control-Allow-Origin", "*")
     (*w).Header().Set("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
@@ -139,10 +163,11 @@ func setupRoutes() {
     http.ListenAndServe(":9000", nil)
 }
 
-func createCredential(metadata *model.Metadata)(string){
+func createCredential(metadata *model.Metadata, contact *model.Contact)(string){
     credentials := make([]*model.CredentialSubject, 0, 50)
     credentialSubject := model.CredentialSubject{}
     credentialSubject.Type = "DocumentHashCredential"
+    credentialSubject.Email = contact.Email
     
     fmt.Println("ffff:",time.Now().UTC().Format("2006-01-02T15:04:05Z"))
     issuanceDate, err := strfmt.ParseDateTime(time.Now().UTC().Format("2006-01-02T15:04:05Z"))
@@ -172,7 +197,7 @@ func createCredential(metadata *model.Metadata)(string){
     jsonValue, _ := json.Marshal(credentials)
     fmt.Println("#####REQUEST####", string(jsonValue))
     
-    timeout := time.Duration(10 * time.Second)
+    timeout := time.Duration(15 * time.Second)
     client := http.Client{
         Timeout: timeout,
     }
